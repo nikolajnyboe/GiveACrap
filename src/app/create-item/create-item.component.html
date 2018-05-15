@@ -1,0 +1,20 @@
+<mat-card>
+  <mat-card-title>Create an item!</mat-card-title>
+  <form novalidate [formGroup]="createForm"
+    (submit)="onSubmit(createForm)">
+
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" formControlName="name" placeholder="Name" required>
+      <mat-error *ngIf="name.invalid">{{getErrorMessage(name)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" formControlName="description" placeholder="Description" required>
+      <mat-error *ngIf="description.invalid">{{getErrorMessage(description)}}</mat-error>
+    </mat-form-field>
+
+    <button mat-button color="primary" type="submit">Create item</button>
+
+  </form>
+  <mat-error *ngIf="createForm.invalid">Form invalid</mat-error>
+</mat-card>

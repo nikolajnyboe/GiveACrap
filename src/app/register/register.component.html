@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-card-title>Sign up to Give A Crap!</mat-card-title>
+  <form novalidate [formGroup]="registerForm"
+    (submit)="onSubmit(registerForm)">
+
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" formControlName="firstname" placeholder="First name" required>
+      <mat-error *ngIf="firstname.invalid">{{getErrorMessage(firstname)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" formControlName="lastname" placeholder="Last name" required>
+      <mat-error *ngIf="lastname.invalid">{{getErrorMessage(lastname)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput type="email" formControlName="email" placeholder="Email" required>
+      <mat-error *ngIf="email.invalid">{{getErrorMessage(email)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput type="password" formControlName="password" placeholder="Password" required>
+      <mat-error *ngIf="password.invalid">{{getErrorMessage(password)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput type="password" formControlName="password2" placeholder="Confirm Password" required>
+      <mat-error *ngIf="password2.invalid">{{getErrorMessage(password2)}}</mat-error>
+    </mat-form-field>
+
+    <button mat-button color="primary" type="submit">Sign Up</button>
+
+  </form>
+  <mat-error *ngIf="registerForm.invalid">Form invalid</mat-error>
+</mat-card>

@@ -1,0 +1,20 @@
+<mat-card>
+  <mat-card-title>Login!</mat-card-title>
+  <form novalidate [formGroup]="loginForm"
+    (submit)="onSubmit(loginForm)">
+
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" formControlName="email" placeholder="Email" required>
+      <mat-error *ngIf="email.invalid">{{getErrorMessage(email)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput type="password" formControlName="password" placeholder="Password" required>
+      <mat-error *ngIf="password.invalid">{{getErrorMessage(password)}}</mat-error>
+    </mat-form-field>
+
+    <button mat-button color="primary" type="submit">Login</button>
+
+  </form>
+  <mat-error *ngIf="loginForm.invalid">Form invalid</mat-error>
+</mat-card>
