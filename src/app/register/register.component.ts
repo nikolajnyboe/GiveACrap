@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { User } from '../entities/user';
 import { PasswordValidator } from '../validators/password-validator';
+import { UsersActions } from '../users.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,13 +14,17 @@ export class RegisterComponent implements OnInit {
   private registerForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private usersActions: UsersActions,
+    private router: Router
   ) { }
 
   onSubmit(form: FormGroup): void {
     if (form.valid) {
       const user: User = form.value as User;
       console.log(user)
+      this.usersActions.createUser(user);
+      this.router.navigate(['users']);
     }
     else {
       console.log('form invalid')
