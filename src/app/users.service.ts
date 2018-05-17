@@ -9,16 +9,21 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
+  private baseApi = 'https://give-a-crap.firebaseio.com/users.json';
+
   getUsers() {
-    return this.http.get('http://angular2api2.azurewebsites.net/api/internships');
+    return this.http.get(this.baseApi);
+  }
+
+  getUserByEmail(email: String) {
+    return this.http.get(`${this.baseApi}?orderBy="email"&equalTo="${email}"`);
   }
 
   createUser(user: User) {
-    user.Nikolaj = true;
-    return this.http.post('http://angular2api2.azurewebsites.net/api/internships', user);
+    return this.http.post(this.baseApi, user);
   }
 
   static getInitialUsersState() : UsersState {
-    return { users: []};
+    return {users: [], currentUser: undefined};
   }
 }

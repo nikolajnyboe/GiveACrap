@@ -18,6 +18,9 @@ import { UsersService } from './users.service';
 import { UsersEpic } from './users.epic';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersComponent } from './users/users.component';
+import { ItemsActions } from './items.actions';
+import { ItemsService } from './items.service';
+import { ItemsEpic } from './items.epic';
 
 
 @NgModule({
@@ -38,18 +41,24 @@ import { UsersComponent } from './users/users.component';
     NgReduxModule,
     NgReduxRouterModule.forRoot()
   ],
-  providers: [UsersActions, UsersService, UsersEpic],
+  providers: [UsersActions, UsersService, UsersEpic, ItemsActions, ItemsService, ItemsEpic],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(private ngRedux: NgRedux<IAppState>,
     private devTool: DevToolsExtension,
-    private ngReduxRouter: NgReduxRouter, private usersEpic: UsersEpic) {
+    private ngReduxRouter: NgReduxRouter,
+    private usersEpic: UsersEpic,
+    private itemsEpic: ItemsEpic
+  ) {
 
       // From app.module.ts - constructor
       const rootEpic = combineEpics(
         this.usersEpic.getUsers,
-        this.usersEpic.createUser
+        this.usersEpic.createUser,
+        this.usersEpic.login,
+        this.itemsEpic.getItems,
+        this.itemsEpic.createItem
         // Each epic is referenced here.
       );
 

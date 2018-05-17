@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Item } from '../entities/item';
+import { Router } from '@angular/router';
+import { ItemsActions } from '../items.actions';
 
 @Component({
   selector: 'app-create-item',
@@ -11,7 +13,9 @@ export class CreateItemComponent implements OnInit {
   private createForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private itemsActions: ItemsActions,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -25,6 +29,8 @@ export class CreateItemComponent implements OnInit {
     if (form.valid) {
       const item: Item = form.value as Item;
       console.log(item)
+      this.itemsActions.createItem(item);
+      this.router.navigate(['home']);
     }
     else {
       console.log('form invalid')

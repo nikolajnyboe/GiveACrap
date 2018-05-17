@@ -17,16 +17,29 @@ export class UsersActions {
   static CREATED_USER: string = 'CREATED_USER';
   static FAILED_CREATED_USER: string = 'FAILED_CREATED_USER';
 
+  static LOG_IN: string = 'LOG_IN';
+  static LOGGED_IN: string = 'LOGGED_IN';
+  static FAILED_LOGGED_IN: string = 'FAILED_LOGGED_IN';
+
+  static LOG_OUT: string = 'LOG_OUT';
+
   getUsers() {
     this.ngRedux.dispatch({
       type: UsersActions.GET_USERS
     })
   }
 
-  createUser(user: User): void {
+  createUser(user: User) {
     this.ngRedux.dispatch({
       type: UsersActions.CREATE_USER,
       payload: user
+    })
+  }
+
+  login(email: String) {
+    this.ngRedux.dispatch({
+      type: UsersActions.LOG_IN,
+      payload: email
     })
   }
 }

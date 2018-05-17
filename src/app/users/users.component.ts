@@ -22,7 +22,10 @@ export class UsersComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  constructor(private ngRedux: NgRedux<IAppState>, private usersActions: UsersActions) { }
+  constructor(
+    private ngRedux: NgRedux<IAppState>,
+    private usersActions: UsersActions
+  ) { }
 
   ngOnInit() {
     this.usersActions.getUsers();

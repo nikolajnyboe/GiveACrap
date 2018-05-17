@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgRedux } from '@angular-redux/store';
+import { IAppState } from '../store/store';
+import { UsersActions } from '../users.actions';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +14,9 @@ export class LoginComponent implements OnInit {
   private loginForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private ngRedux: NgRedux<IAppState>,
+    private usersActions: UsersActions
   ) { }
 
   ngOnInit() {
@@ -23,7 +28,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit(form: FormGroup): void {
     if (form.valid) {
-      console.log(form.value)
+      const email = form.value.email;
+      console.log(email)
+      this.usersActions.login(email);
     }
     else {
       console.log('form invalid')

@@ -16,12 +16,22 @@ export class UsersEpic {
 
   getUsers = (action$: ActionsObservable<any>) => {
     return action$.ofType(UsersActions.GET_USERS) // Listen for this action
-      .mergeMap(({payload}) => { // payload: (subject: Subject, date: Date): When this action is activated, call ws through service class or directly like below
+      .mergeMap(({payload}) => {
           return this.usersService.getUsers()
-            .map((result: any[]) => ({ // when web service responds with success, call this action with payload that came back from webservice
-              type: UsersActions.RECEIVED_USERS,
-              payload: result.filter(x => x.Nikolaj === true)
-            }))
+            .map((result: any[]) => { // result: data from firebase api
+              let usersArray = Object.keys(result) // convert firebase data to array
+                .reduce((array, key) => {
+                  const user = {...result[key]}
+                  user.id = key;
+                  delete user.password
+                  array.push(user);
+                  return array;
+                }, [])
+              return({ // when web service responds with success, call this action with payload that came back from webservice
+                type: UsersActions.RECEIVED_USERS,
+                payload: usersArray
+              })
+            })
             .catch(error => Observable.of({ // when web service responds with failure, call this action with payload that came back from webservice
               type: UsersActions.FAILED_RECEIVED_USERS,
               payload: error
@@ -31,14 +41,51 @@ export class UsersEpic {
 
   createUser = (action$: ActionsObservable<any>) => {
     return action$.ofType(UsersActions.CREATE_USER) // Listen for this action
-      .mergeMap(({payload}) => { // payload: (subject: Subject, date: Date): When this action is activated, call ws through service class or directly like below
+      .mergeMap(({payload}) => { // payload: user
+          delete payload.password2
           return this.usersService.createUser(payload)
-            .map((result: User) => ({ // when web service responds with success, call this action with payload that came back from webservice
-              type: UsersActions.CREATED_USER,
-              payload: result
-            }))
+            .map((result: any) => { // result: data from firebase api {name: "-id"}
+              let user = payload
+              user.id = result.name
+              delete user.password
+              return({ // when web service responds with success, call this action with payload that came back from webservice
+                type: UsersActions.CREATED_USER,
+                payload: user
+              })
+            })
             .catch(error => Observable.of({ // when web service responds with failure, call this action with payload that came back from webservice
               type: UsersActions.FAILED_CREATED_USER,
+              payload: error
+          }));
+    });
+  }
+
+  login = (action$: ActionsObservable<any>) => {
+    return action$.ofType(UsersActions.LOG_IN) // Listen for this action
+      .mergeMap(({payload}) => { // payload: email to be logged in
+          delete payload.password2
+          return this.usersService.getUserByEmail(payload)
+            .map((result: any) => { // result: data from firebase ap
+              let user = Object.keys(result) // convert firebase data to array
+                .reduce((object: any, key) => {
+                  object = {...result[key]}
+                  object.id = key;
+                  return object;
+                }, {})
+              if (user.email) {
+                return({ // when web service responds with success, call this action with payload that came back from webservice
+                  type: UsersActions.LOGGED_IN,
+                  payload: user
+                })
+              } else {
+                return({ // when web service responds with success, call this action with payload that came back from webservice
+                  type: UsersActions.FAILED_LOGGED_IN,
+                  payload: undefined
+                })
+              }
+            })
+            .catch(error => Observable.of({ // when web service responds with failure, call this action with payload that came back from webservice
+              type: UsersActions.FAILED_LOGGED_IN,
               payload: error
           }));
     });
