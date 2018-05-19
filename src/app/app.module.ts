@@ -21,6 +21,7 @@ import { UsersComponent } from './users/users.component';
 import { ItemsActions } from './items.actions';
 import { ItemsService } from './items.service';
 import { ItemsEpic } from './items.epic';
+import { AuthGuardService } from './auth-guard.service';
 
 
 @NgModule({
@@ -41,7 +42,7 @@ import { ItemsEpic } from './items.epic';
     NgReduxModule,
     NgReduxRouterModule.forRoot()
   ],
-  providers: [UsersActions, UsersService, UsersEpic, ItemsActions, ItemsService, ItemsEpic],
+  providers: [AuthGuardService, UsersActions, UsersService, UsersEpic, ItemsActions, ItemsService, ItemsEpic],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -31,6 +31,9 @@ export function usersReducer(state: UsersState = INITIAL_STATE, action:any) {
     case UsersActions.LOG_IN:
       return state;
 
+    case UsersActions.LOG_OUT:
+      return tassign(state, {currentUser: undefined});
+
     default:
       return state;
   }

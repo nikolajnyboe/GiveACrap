@@ -42,4 +42,10 @@ export class UsersActions {
       payload: email
     })
   }
+
+  logout() {
+    this.ngRedux.dispatch({
+      type: UsersActions.LOG_OUT
+    })
+  }
 }
