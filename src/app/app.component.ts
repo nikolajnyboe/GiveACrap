@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from './store/store';
 import { Subscription } from 'rxjs/Subscription';
@@ -9,12 +9,17 @@ import { UsersActions } from './users.actions';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
 
   subscription: Subscription;
 
   private currentUser
+
+  ngOnDestroy(): void {
+    // Always unsubscribe on destroy.
+    this.subscription.unsubscribe();
+  }
 
   constructor(private ngRedux: NgRedux<IAppState>, private usersActions: UsersActions) { }
 

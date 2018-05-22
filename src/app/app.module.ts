@@ -22,6 +22,7 @@ import { ItemsActions } from './items.actions';
 import { ItemsService } from './items.service';
 import { ItemsEpic } from './items.epic';
 import { AuthGuardService } from './auth-guard.service';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { AuthGuardService } from './auth-guard.service';
     CreateItemComponent,
     LoginComponent,
     HomeComponent,
-    UsersComponent
+    UsersComponent,
+    AdminComponent
   ],
   imports: [
     HttpClientModule,

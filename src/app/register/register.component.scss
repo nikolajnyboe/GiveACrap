@@ -1,3 +1,23 @@
 mat-form-field {
   width: 100%;
 }
+
+mat-radio-button:nth-of-type(1) {
+  margin-bottom: 10px;
+
+}
+
+mat-radio-group {
+  mat-error {
+    font-size: 75%;
+    margin-top: 5px;
+  }
+}
+
+.error {
+  color: #f44336;
+}
+
+button {
+  margin-top: 20px;
+}

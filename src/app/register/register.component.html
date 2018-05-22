@@ -28,6 +28,13 @@
       <mat-error *ngIf="password2.invalid">{{getErrorMessage(password2)}}</mat-error>
     </mat-form-field>
 
+    <mat-radio-group formControlName="admin" required>
+      <p [ngClass]="{'error' : admin.invalid && (admin.pristine && submitted)}">User role *</p>
+      <mat-radio-button [value]="true">Admin</mat-radio-button><br>
+      <mat-radio-button [value]="false">User</mat-radio-button><br>
+      <mat-error *ngIf="admin.invalid && (admin.pristine && submitted)">{{getErrorMessage(admin)}}</mat-error>
+    </mat-radio-group>
+
     <button mat-button color="primary" type="submit">Sign Up</button>
 
   </form>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ItemsActions } from '../items.actions';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../store/store';
@@ -10,7 +10,7 @@ import { Item } from '../entities/item';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 

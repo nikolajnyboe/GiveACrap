@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   private registerForm: FormGroup;
+  private submitted: Boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -20,11 +21,12 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   onSubmit(form: FormGroup): void {
+    this.submitted = true;
     if (form.valid) {
       const user: User = form.value as User;
       console.log(user)
       this.usersActions.createUser(user);
-      this.router.navigate(['users']);
+      this.router.navigate(['login']);
     }
     else {
       console.log('form invalid')
@@ -32,12 +34,14 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.submitted = false;
     this.registerForm = this.fb.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      password2: ['', Validators.required]
+      password2: ['', Validators.required],
+      admin: ['', Validators.required]
     }
     ,{
       validator: PasswordValidator.matchPassword
@@ -49,6 +53,7 @@ export class RegisterComponent implements OnInit {
   get email() { return this.registerForm.get('email'); }
   get password() { return this.registerForm.get('password'); }
   get password2() { return this.registerForm.get('password2'); }
+  get admin() { return this.registerForm.get('admin'); }
 
   getErrorMessage(formControl) {
     const errors = formControl.errors;
