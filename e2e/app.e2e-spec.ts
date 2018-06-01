@@ -1,4 +1,4 @@
-import { AppPage } from './app.po';
+/* import { AppPage } from './app.po';
 
 describe('give-acrap App', () => {
   let page: AppPage;
@@ -12,3 +12,4 @@ describe('give-acrap App', () => {
     expect(page.getParagraphText()).toEqual('Welcome to app!');
   });
 });
+ */

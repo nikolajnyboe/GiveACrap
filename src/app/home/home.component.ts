@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.itemsActions.getItems();
     this.subscription = this.ngRedux.select(state => state.items).subscribe(items => {
-      console.log("users in component", items.items);
+      console.log("items in component", items.items);
       this.items = items.items;
     });
   }

@@ -2,9 +2,9 @@
   <button mat-button color="accent" routerLink="home" routerLinkActive="active-menu">Home</button>
   <button mat-button color="accent" routerLink="create-item" routerLinkActive="active-menu" *ngIf="currentUser != undefined">Create Item</button>
   <button mat-button color="accent" routerLink="admin" routerLinkActive="active-menu" *ngIf="currentUser != undefined && currentUser.admin === true">Admin</button>
-  <button mat-button color="accent" routerLink="register" routerLinkActive="active-menu" *ngIf="currentUser == undefined">Sign Up</button>
-  <button mat-button color="accent" routerLink="login" routerLinkActive="active-menu" *ngIf="currentUser == undefined">Login</button>
-  <button mat-button color="accent" (click)="logout()" *ngIf="currentUser != undefined">Log out</button>
+  <button class="pull-right" mat-button color="accent" routerLink="register" routerLinkActive="active-menu" *ngIf="currentUser == undefined">Sign Up</button>
+  <button class="pull-right" mat-button color="accent" routerLink="login" routerLinkActive="active-menu" *ngIf="currentUser == undefined">Login</button>
+  <button class="pull-right" mat-button color="accent" (click)="logout()" *ngIf="currentUser != undefined">Log out</button>
 </nav>
 
 <router-outlet></router-outlet>

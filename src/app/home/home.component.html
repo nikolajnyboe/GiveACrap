@@ -1,4 +1,7 @@
-<mat-card *ngFor="let item of items">
+<h2>Items:</h2>
+<input type="text" placeholder="Search..." [(ngModel)]="search">
+<mat-card *ngFor="let item of items | itemsFilter: search">
+  <div *ngIf="item === -1">No items found</div>
   <p>{{item.name}}</p>
   <p>{{item.description}}</p>
 </mat-card>

@@ -1,24 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RegisterComponent } from './register/register.component';
-import { CreateItemComponent } from './create-item/create-item.component';
-import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { UsersComponent } from './users/users.component';
-import { AuthGuardService } from './auth-guard.service';
-import { AdminComponent } from './admin/admin.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService],
-    children: [
-      { path: 'users', component: UsersComponent}
-    ]
-  },
-  { path: 'create-item', component: CreateItemComponent, canActivate: [AuthGuardService] }
+  { path: 'admin', loadChildren: './modules/admin/admin.module#AdminModule' },
+  { path: 'create-item', loadChildren: './modules/create-item/create-item.module#CreateItemModule' }
 ];
 
 @NgModule({
