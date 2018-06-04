@@ -1,7 +1,8 @@
 <h2>Items:</h2>
 <input type="text" placeholder="Search..." [(ngModel)]="search">
-<mat-card *ngFor="let item of items | itemsFilter: search">
+<mat-card *ngFor="let item of items | itemsFilter: search" (click)="selectItem(item.id)">
   <div *ngIf="item === -1">No items found</div>
   <p>{{item.name}}</p>
   <p>{{item.description}}</p>
+  <button mat-button class="deleteItem" type="button" (click)="deleteItem(item.id)" *ngIf="currentUser && currentUser.id == item.creatorId">Delete</button>
 </mat-card>

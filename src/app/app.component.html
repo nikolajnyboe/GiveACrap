@@ -5,6 +5,7 @@
   <button class="pull-right" mat-button color="accent" routerLink="register" routerLinkActive="active-menu" *ngIf="currentUser == undefined">Sign Up</button>
   <button class="pull-right" mat-button color="accent" routerLink="login" routerLinkActive="active-menu" *ngIf="currentUser == undefined">Login</button>
   <button class="pull-right" mat-button color="accent" (click)="logout()" *ngIf="currentUser != undefined">Log out</button>
+  <button class="pull-right" mat-button color="accent" routerLink="account" *ngIf="currentUser != undefined">Account</button>
 </nav>
 
 <router-outlet></router-outlet>

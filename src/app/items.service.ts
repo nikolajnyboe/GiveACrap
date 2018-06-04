@@ -9,15 +9,32 @@ export class ItemsService {
 
   constructor(private http: HttpClient) {}
 
+  private baseApi = 'https://give-a-crap.firebaseio.com/items.json';
+
   getItems() {
-    return this.http.get('https://give-a-crap.firebaseio.com/items.json');
+    return this.http.get(this.baseApi);
+  }
+
+  getItem(id: String) {
+    const api = this.baseApi.slice(0, -5); // because stupid firebase
+    return this.http.get(`${api}/${id}.json`);
   }
 
   createItem(item: Item) {
-    return this.http.post('https://give-a-crap.firebaseio.com/items.json', item);
+    return this.http.post(this.baseApi, item);
+  }
+
+  updateItem(id: String, item: Item) {
+    const api = this.baseApi.slice(0, -5); // because stupid firebase
+    return this.http.patch(`${api}/${id}.json`, item);
+  }
+
+  deleteItem(id: String) {
+    const api = this.baseApi.slice(0, -5); // because stupid firebase
+    return this.http.delete(`${api}/${id}.json`);
   }
 
   static getInitialItemsState() : ItemsState {
-    return { items: []};
+    return { items: [], selectedItem: undefined};
   }
 }

@@ -1,7 +1,7 @@
 <mat-card>
-  <mat-card-title>Create an item!</mat-card-title>
-  <form novalidate [formGroup]="createForm"
-    (submit)="onSubmit(createForm)">
+  <mat-card-title>Edit item!</mat-card-title>
+  <form novalidate *ngIf="item" [formGroup]="updateItemForm"
+    (submit)="onSubmit(updateItemForm)">
 
     <mat-form-field class="example-full-width">
       <input matInput type="text" formControlName="name" placeholder="Name" required>
@@ -13,6 +13,8 @@
       <mat-error *ngIf="description.invalid">{{getErrorMessage(description)}}</mat-error>
     </mat-form-field>
 
-    <button mat-button color="primary" type="submit">Create item</button>
+    <button mat-button color="primary" type="submit">Save</button>
+
+    <button mat-button class="deleteItem" type="button" (click)="deleteItem()">Delete Item</button>
   </form>
 </mat-card>

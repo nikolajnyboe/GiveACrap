@@ -22,6 +22,8 @@ import { ItemsEpic } from './items.epic';
 import { AuthGuardService } from './auth-guard.service';
 import { ItemsFilterPipe } from './items-filter.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AccountComponent } from './account/account.component';
+import { ItemDetailComponent } from './item-detail/item-detail.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    ItemsFilterPipe
+    ItemsFilterPipe,
+    AccountComponent,
+    ItemDetailComponent
   ],
   imports: [
     HttpClientModule,
@@ -58,9 +62,14 @@ export class AppModule {
       const rootEpic = combineEpics(
         this.usersEpic.getUsers,
         this.usersEpic.createUser,
+        this.usersEpic.updateUser,
+        this.usersEpic.deleteUser,
         this.usersEpic.login,
         this.itemsEpic.getItems,
-        this.itemsEpic.createItem
+        this.itemsEpic.getItem,
+        this.itemsEpic.createItem,
+        this.itemsEpic.updateItem,
+        this.itemsEpic.deleteItem
         // Each epic is referenced here.
       );
 

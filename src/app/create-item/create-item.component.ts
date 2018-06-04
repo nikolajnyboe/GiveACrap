@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Item } from '../entities/item';
 import { Router } from '@angular/router';
 import { ItemsActions } from '../items.actions';
+import { NgRedux } from '@angular-redux/store';
+import { IAppState } from '../store/store';
 
 @Component({
   selector: 'app-create-item',
@@ -16,7 +18,8 @@ export class CreateItemComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private itemsActions: ItemsActions,
-    private router: Router
+    private router: Router,
+    private ngRedux: NgRedux<IAppState>
   ) { }
 
   ngOnInit() {
@@ -29,6 +32,9 @@ export class CreateItemComponent implements OnInit {
   onSubmit(form: FormGroup): void {
     if (form.valid) {
       const item: Item = form.value as Item;
+      const state = this.ngRedux.getState();
+      const currentUser = state.users.currentUser;
+      item.creatorId = currentUser.id;
       console.log(item)
       this.itemsActions.createItem(item);
       this.router.navigate(['home']);

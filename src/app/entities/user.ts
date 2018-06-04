@@ -3,4 +3,5 @@ export class User {
   public lastname: String;
   public email: String;
   public admin: Boolean;
+  public id?: String;
 }

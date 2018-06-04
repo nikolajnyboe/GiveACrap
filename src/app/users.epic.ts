@@ -60,6 +60,41 @@ export class UsersEpic {
     });
   }
 
+  updateUser = (action$: ActionsObservable<any>) => {
+    return action$.ofType(UsersActions.UPDATE_USER) // Listen for this action
+      .mergeMap(({payload}) => { // payload: {id, user}
+          return this.usersService.updateUser(payload.id, payload.user)
+            .map((result: any) => { // result: data from firebase api {updated user}
+              result = {id: payload.id, user: result}
+              return({ // when web service responds with success, call this action with payload that came back from webservice
+                type: UsersActions.UPDATED_USER,
+                payload: result
+              })
+            })
+            .catch(error => Observable.of({ // when web service responds with failure, call this action with payload that came back from webservice
+              type: UsersActions.FAILED_UPDATED_USER,
+              payload: error
+            }));
+    });
+  }
+
+  deleteUser = (action$: ActionsObservable<any>) => {
+    return action$.ofType(UsersActions.DELETE_USER) // Listen for this action
+      .mergeMap(({payload}) => { // payload: id
+          return this.usersService.deleteUser(payload)
+            .map((result: any) => { // result: data from firebase api {}
+              return({ // when web service responds with success, call this action with payload that came back from webservice
+                type: UsersActions.DELETED_USER,
+                payload: payload
+              })
+            })
+            .catch(error => Observable.of({ // when web service responds with failure, call this action with payload that came back from webservice
+              type: UsersActions.FAILED_DELETED_USER,
+              payload: error
+            }));
+    });
+  }
+
   login = (action$: ActionsObservable<any>) => {
     return action$.ofType(UsersActions.LOG_IN) // Listen for this action
       .mergeMap(({payload}) => { // payload: email to be logged in
@@ -72,6 +107,7 @@ export class UsersEpic {
                   object.id = key;
                   return object;
                 }, {})
+              delete user.password
               if (user.email) {
                 return({ // when web service responds with success, call this action with payload that came back from webservice
                   type: UsersActions.LOGGED_IN,

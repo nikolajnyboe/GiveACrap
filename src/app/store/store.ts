@@ -12,6 +12,7 @@ export class UsersState {
 
 export class ItemsState {
   items: Item[];
+  selectedItem: Item;
  }
 
 export class IAppState {

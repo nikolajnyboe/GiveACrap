@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Item } from '../entities/item';
 import { UsersActions } from '../users.actions';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../store/store';
@@ -33,6 +32,10 @@ export class UsersComponent implements OnInit {
       console.log("users in component", users.users);
       this.users = users.users;
     });
+  }
+
+  deleteUser(id: String) {
+    this.usersActions.deleteUser(id);
   }
 
 }

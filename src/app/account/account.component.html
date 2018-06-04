@@ -1,0 +1,26 @@
+<mat-card>
+  <mat-card-title>Edit your info!</mat-card-title>
+  <form novalidate [formGroup]="updateUserForm"
+    (submit)="onSubmit(updateUserForm)">
+
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" formControlName="firstname" placeholder="First name" required>
+      <mat-error *ngIf="firstname.invalid">{{getErrorMessage(firstname)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" formControlName="lastname" placeholder="Last name" required>
+      <mat-error *ngIf="lastname.invalid">{{getErrorMessage(lastname)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput type="email" formControlName="email" placeholder="Email" required>
+      <mat-error *ngIf="email.invalid">{{getErrorMessage(email)}}</mat-error>
+    </mat-form-field>
+
+    <button mat-button color="primary" type="submit">Save</button>
+
+    <button mat-button class="deleteAccount" type="button" (click)="deleteAccount()">Delete Account</button>
+  </form>
+  <mat-error *ngIf="updateUserForm.invalid">Form invalid</mat-error>
+</mat-card>

@@ -3,4 +3,5 @@
 <mat-card *ngFor="let user of users">
   <p>Name: {{user.firstname}} {{user.lastname}}</p>
   <p>Email: {{user.email}}</p>
+  <button class="deleteUser" mat-button (click)="deleteUser(user.id)">Delete</button>
 </mat-card>

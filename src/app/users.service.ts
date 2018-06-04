@@ -23,6 +23,16 @@ export class UsersService {
     return this.http.post(this.baseApi, user);
   }
 
+  updateUser(id: String, user: User) {
+    const api = this.baseApi.slice(0, -5); // because stupid firebase
+    return this.http.patch(`${api}/${id}.json`, user);
+  }
+
+  deleteUser(id: String) {
+    const api = this.baseApi.slice(0, -5); // because stupid firebase
+    return this.http.delete(`${api}/${id}.json`);
+  }
+
   static getInitialUsersState() : UsersState {
     return {users: [], currentUser: undefined};
   }
