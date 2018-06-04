@@ -15,7 +15,7 @@ export class UsersComponent implements OnInit {
 
   subscription: Subscription;
 
-  private users: User[];
+  users: User[];
 
   ngOnDestroy(): void {
     // Always unsubscribe on destroy.

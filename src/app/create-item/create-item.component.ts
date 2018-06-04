@@ -10,7 +10,8 @@ import { ItemsActions } from '../items.actions';
   styleUrls: ['./create-item.component.scss']
 })
 export class CreateItemComponent implements OnInit {
-  private createForm: FormGroup;
+
+  createForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,

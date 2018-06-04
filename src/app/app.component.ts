@@ -3,6 +3,7 @@ import { NgRedux } from '@angular-redux/store';
 import { IAppState } from './store/store';
 import { Subscription } from 'rxjs/Subscription';
 import { UsersActions } from './users.actions';
+import { User } from './entities/user';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  private currentUser
+  currentUser: User
 
   ngOnDestroy(): void {
     // Always unsubscribe on destroy.

@@ -14,7 +14,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  private items: Item[];
+  search: String;
+
+  items: Item[];
 
   ngOnDestroy(): void {
     // Always unsubscribe on destroy.

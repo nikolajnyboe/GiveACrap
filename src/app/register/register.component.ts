@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  private registerForm: FormGroup;
-  private submitted: Boolean;
+  registerForm: FormGroup;
+  submitted: Boolean;
 
   constructor(
     private fb: FormBuilder,
