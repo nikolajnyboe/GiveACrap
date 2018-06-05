@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../store/store';
 import { UsersActions } from '../users.actions';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-
-  loginForm: FormGroup;
+export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
@@ -20,6 +19,14 @@ export class LoginComponent implements OnInit {
     private usersActions: UsersActions,
     private router: Router
   ) { }
+
+  loginForm: FormGroup;
+  subscription: Subscription;
+
+  ngOnDestroy(): void {
+    // Always unsubscribe on destroy.
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -33,7 +40,11 @@ export class LoginComponent implements OnInit {
       const email = form.value.email;
       console.log(email)
       this.usersActions.login(email);
-      this.router.navigate(['home']);
+      this.subscription = this.ngRedux.select(state => state.users).subscribe(users => {
+        if (users.currentUser != undefined) {
+          this.router.navigate(['home']);
+        }
+      });
     }
     else {
       console.log('form invalid')
