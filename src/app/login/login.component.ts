@@ -33,6 +33,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
+    this.subscription = this.ngRedux.select(state => state.users).subscribe(users => {
+      if (users.currentUser != undefined) {
+        this.router.navigate(['home']);
+      }
+    });
   }
 
   onSubmit(form: FormGroup): void {
@@ -40,11 +45,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       const email = form.value.email;
       console.log(email)
       this.usersActions.login(email);
-      this.subscription = this.ngRedux.select(state => state.users).subscribe(users => {
-        if (users.currentUser != undefined) {
-          this.router.navigate(['home']);
-        }
-      });
     }
     else {
       console.log('form invalid')
